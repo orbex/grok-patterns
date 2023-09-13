@@ -1,0 +1,45 @@
+# infoblox uid
+DHCPUID (?:(?:[A-Fa-f0-9]{2}:){6}[A-Fa-f0-9]{2})
+DHCPSTATUS ((not )?found)
+# word(s) separated by space
+WORDS (?:%{WORD}(%{SPACE}%{WORD})*)
+# word(s) separated by space or dash
+WORDSDS (?:%{WORD}((\s|-)?%{WORD})*)
+# huawei uses illegal characters in hostnames (underscores) : HUAWEI_P10_lite , OnePlus_3, Honor_9-26d94ca2524c0bd5, OnePlus_3_-_Maarten_Bolhuis
+HUAWEI \b(?:[0-9A-Za-z_][0-9A-Za-z-]{0,62})(?:(-|_|\.|_-_)(?:[0-9A-Za-z][0-9A-Za-z-]{0,62}))*(\.?|\b)
+#Hostname Unsuitable for Printing
+HUFP (Hostname Unsuitable for Printing)
+IOHOH (?:%{IP}|%{HOSTNAME}|%{HUAWEI}|%{HUFP}|%{WORDS})
+DHCPMNEMONIC (DHCP[A-Z]+|BOOT[A-Z]+|RELEASE|DDNS)
+#DNSMNEMONIC (?:%{WORD}(\-%{WORD})*)
+DNSMNEMONIC (general|security|notify|update|update-security|lame-servers|resolver|cname|dnssec|xfer-in|edns-disabled|xfer-out|database|network|dispatch|range|query-errors)
+DHCPMAP ((|Addition of |Added (new )?|Unable to add |Removed )([Ff]orward|[Rr]everse) map (to|on|for|from|update (for)?))
+WORDSWITHDASH (?:%{WORDS}-?%{WORDS})
+PTR (?:%{IP}.in-addr.arpa.)
+IPORPTR %{PTR}|%{IP}
+OTAPSTATUSFROMHOST (?<=^.{1})([A-Za-z])
+IPORHOSTUNDERSCORE (?:%{IP}|%{HOSTNAMEUNDERSCORE})
+HOSTNAMEUNDERSCORE \b(?:[0-9A-Za-z][0-9A-Za-z_-]{0,62})(?:\.(?:[0-9A-Za-z][0-9A-Za-z_-]{0,62}))*(\.?|\b)
+# Patterns tbv cisco time
+TIJDZONEGET ([A-Z][A-Z][A-Z])
+TIMESTAMPCISCOVAR1 (?:%{HOUR}):(?:%{MINUTE}):(?:%{SECOND}) (?:%{TIJDZONEGET}) (?:%{DAY}) (?:%{MONTH}) (?:%{MONTHDAY}) (?:%{YEAR})
+WLCUSERNAMEPAT  .*Username\sentry\s\((?<USERNAME>.*)\)\swith\s\S+\s\S+\s(?<useraction>\S+).*\s(?<MACADDR>.*)$
+WLCUSERNAME (?:%{WLCUSERNAMEPAT})
+TIMESTAMPCISCOWLC [A-Za-z][A-Za-z][A-Za-z]\s\d\d\s\d\d:\d\d:\d\d\.\d\d\d
+CISCOARPACTIONPAT to(?<CISCOARPACTION>\S+)\s\S+\s
+CISCOWLCSTATEOUTCOME .*:\d+\s(?<CHECKPOINTSTATE>.*)\s
+CISCOWLCGETCLIENTID .*client\sID\s\((?<CLIENTID>\d+)\)\.
+CISCOWCL_NR_TIMES \[.*occurred\s(?<TIMESERROR>\d+)\stime
+CISCOWLC_RESULT .*c:\d+\s(?<CISCOWLC_ARP_OUTCOME>\S+)\s
+CISCOWLC_WHATTO \S+\s(?<ACTIONTO>\S+)\s
+CISCOWLC_WHATTO2 \S+\s(?<ACTIONTO2>\S+)\s
+CISCOWLC_WHATITEM \S+\s(?<ACTIONITEM>\S+)\s
+CISCOWLC_SRCADDR \S+\s\S+\s(?<SRCPADDR>(?:%{IPV6}|%{IPV4}))\s
+CISCOWLC_REASON .*\.\s(?<REASON>.*)\.
+CISCOWLC_REASON2 .*\.\s(?<REASON>.*)\.
+# "from the operating system. No such device"
+# CISCOWLC_DEVICETYPE1 .*\s\S+\s(?<DEVICETYPE>\S+)\s
+CISCOWLC_DEVICETYPE1 \S+\s\S+\s(?<DEVICETYPE>\S+)\s
+CISCOWLC_SRCMAC (?<ITEMMAC>\S+)\s
+CISCOWLC_DBMSG \S+\s\S+\s\S+\s(?<DBMS>\S+\s\S+\s\S+)\s
+CISCOWLC_DBFOR \S+\s\S+\s(?<ITEMDBFOR>.*)
