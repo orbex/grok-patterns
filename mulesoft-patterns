@@ -1,4 +1,4 @@
-MULE_DATA %{MULE_MESSAGE:mule.data.message}?\\n%{MULE_ELEMENT:mule.data.element}?\\n%{MULE_ELEMENT_DSL:mule.data.element_dsl}?\\n%{MULE_ERROR_TYPE:mule.data.error_type}?\\n%{MULE_FLOWSTACK:mule.data.flowstack}?
+MULE_DATA %{MULE_MESSAGE:mule_data_message}?\\n%{MULE_ELEMENT:mule_data_element}?\\n%{MULE_ELEMENT_DSL:mule_data_element_dsl}?\\n%{MULE_ERROR_TYPE:mule_data_error_type}?\\n%{MULE_FLOWSTACK:mule_data_flowstack}?
 
 MULE_MESSAGE ^Message%{GREEDYDATA} 
 MULE_ELEMENT ^Element%{GREEDYDATA} 
