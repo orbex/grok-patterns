@@ -1,0 +1,7 @@
+MULE_DATA %{MULE_MESSAGE:mule.data.message}?\\n%{MULE_ELEMENT:mule.data.element}?\\n%{MULE_ELEMENT_DSL:mule.data.element_dsl}?\\n%{MULE_ERROR_TYPE:mule.data.error_type}?\\n%{MULE_FLOWSTACK:mule.data.flowstack}?
+
+MULE_MESSAGE ^Message%{GREEDYDATA} 
+MULE_ELEMENT ^Element%{GREEDYDATA} 
+MULE_ELEMENT_DSL ^Element DSL%{GREEDYDATA} 
+MULE_ERROR_TYPE ^Error type%{GREEDYDATA} 
+MULE_FLOWSTACK ^FlowStack%{GREEDYDATA}
